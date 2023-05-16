@@ -1,16 +1,11 @@
 import React, { useState } from "react";
 import css from "../styles/header.module.css";
-import axios from "axios";
-import { useEffect } from "react";
-import { movieAPI } from "../api/api";
 import SearchBtn from "./tools/Search";
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loginWithGoogle } from "../store/LoginSlice";
 import logo from "../pics/dramatic.png";
-import settings from "../pics/settings.png";
 import { SettingOutlined } from "@ant-design/icons";
-import { searchByActor } from "../store/HomeSlice";
 import SearchByActor from "./tools/SearchByActor";
 
 const Header = (props) => {
@@ -116,5 +111,3 @@ const Header = (props) => {
 };
 
 export default Header;
-//"https://api.themoviedb.org/3/movie/550?api_key=90a2d91e59493255d0f5b07d7bb87d05"
-// {modalWindow && <div className={css.popUp}></div>}

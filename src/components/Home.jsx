@@ -4,17 +4,12 @@ import css from "../styles/home.module.css";
 import { useState } from "react";
 import { useEffect } from "react";
 import MovieBlock from "./MovieBlock";
-import SearchBtn from "./tools/Search";
+
 import BigMovie from "./BigMovie/BigMovie";
 import { useSelector } from "react-redux";
-import {
-  requestMovies,
-  requestTV,
-  setMovies,
-  setRecomendations,
-} from "../store/HomeSlice";
+import { requestMovies, requestTV, setMovies } from "../store/HomeSlice";
 import { useDispatch } from "react-redux";
-import SingleMovie from "./SingleMovie";
+
 import MovieBlockPreloader from "./tools/MovieBlockPreloader";
 import Recomended from "./Recomended";
 import { requestFavorites } from "../store/FavoritesSlice";

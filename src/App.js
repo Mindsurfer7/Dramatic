@@ -1,6 +1,5 @@
-import logo from "./logo.svg";
 import css from "./styles/app.module.css";
-import { BrowserRouter, Route, Link, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import Home from "./components/Home";
 import Header from "./components/Header";
 import SingleMovie from "./components/SingleMovie";
@@ -22,6 +21,3 @@ function App() {
 }
 
 export default App;
-
-// <Route path="/cart" element={<Cart />} />
-// <Route path="/pizza/:ID" element={<SinglePizza />} />

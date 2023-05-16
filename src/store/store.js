@@ -7,9 +7,9 @@ import loginReducer from "./LoginSlice.js";
 import favoritesReducer from "./FavoritesSlice.js";
 import RecomendedReducer from "./RecomendedSlice.js";
 
-// export type RootState = ReturnType<typeof PizzaStore.getState>;
+// export type RootState = ReturnType<typeof Store.getState>;
 
-// export type MyDispatch = typeof PizzaStore.dispatch;
+// export type MyDispatch = typeof Store.dispatch;
 
 // export const useMyDispatch = () => useDispatch<MyDispatch>();
 

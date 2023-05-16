@@ -15,9 +15,7 @@ import TrailerBlock from "./tools/TrailerBlock";
 
 const Favorites = () => {
   const UserID = useSelector((state) => state.login.account.uid);
-  const { favorites, favoritesData, actionSuccess } = useSelector(
-    (state) => state.favorites
-  );
+  const { favorites, favoritesData } = useSelector((state) => state.favorites);
   const dispatch = useDispatch();
   console.log(favorites);
 
@@ -48,10 +46,6 @@ const Favorites = () => {
       fetchData();
     }
   }, [UserID, favorites.length]); //user id needed only while developing
-
-  //   useEffect(() => {
-  //     alert("was removed");
-  //   }, [actionSuccess]);
 
   const deleteHandler = (userID, movie_ID) => {
     console.log(userID, movie_ID);

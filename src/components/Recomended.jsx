@@ -1,6 +1,4 @@
 import React, { useEffect } from "react";
-import { API_Key } from "./Home";
-import MovieBlockPreloader from "./tools/MovieBlockPreloader";
 import MovieBlock from "./MovieBlock";
 import { useDispatch, useSelector } from "react-redux";
 import { requestRecMovies } from "../store/RecomendedSlice";
@@ -26,12 +24,6 @@ const Recomended = ({ movieData, selectMovie }) => {
 
   return (
     <div className={css.wrapper}>
-      {/* {!UserID && (
-        <h1 className={css.caution}>
-          Please, log in to get personal recomendations
-        </h1>
-      )} */}
-
       {favorites.length > 0 && <h2>Recomended 4 you!</h2>}
 
       <div className={css.recContainer}>
@@ -68,5 +60,3 @@ const Recomended = ({ movieData, selectMovie }) => {
 };
 
 export default Recomended;
-
-// array.map((x) => <MovieBlockPreloader />)// "LOADING..."

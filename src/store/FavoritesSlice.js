@@ -1,11 +1,10 @@
-import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { API_Key } from "../components/Home";
 import axios from "axios";
 import {
   addToFavoritesAPI,
   removeFromFavoritesAPI,
   requestFavoritesAPI,
-  signInAPI,
 } from "../api/api";
 
 const initialState = {

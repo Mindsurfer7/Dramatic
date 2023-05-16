@@ -1,11 +1,8 @@
 import React, { useState } from "react";
 import css from "../styles/movieblock.module.css";
-import axios from "axios";
 import { useEffect } from "react";
-import { movieAPI } from "../api/api";
 import { NavLink } from "react-router-dom";
 import rating from "../pics/IMDB.png";
-import like from "../pics/like.png";
 import { HeartOutlined, HeartFilled } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { addToFavoritesThunk, requestFavorites } from "../store/FavoritesSlice";

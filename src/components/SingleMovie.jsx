@@ -36,14 +36,6 @@ const SingleMovie = (props) => {
   }, [ID]);
 
   useEffect(() => {
-    // axios
-    //   .get(
-    //     `https://api.themoviedb.org/3/person/62064/images?api_key=90a2d91e59493255d0f5b07d7bb87d05`
-    //   )
-    //   .then((response) => {
-    //     console.log(response.data);
-    //   });
-
     dispatch(requestCredits(ID));
   }, [movieData]);
 
@@ -119,14 +111,3 @@ export default SingleMovie;
 // character(pin): "Edgin Darvis"
 // credit_id(pin): "5fd7fee2420228003e38e9b5"
 // order(pin): 0
-
-// const image = null;
-// useEffect(() => {
-//   axios
-//     .get(
-//       `https://api.themoviedb.org/3/person/${actor.id}/images?api_key=${API_Key}`
-//     )
-//     .then((response) => {
-//       console.log(response.data);
-//     });
-// });

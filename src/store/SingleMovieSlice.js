@@ -2,12 +2,6 @@ import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { API_Key } from "../components/Home";
 import axios from "axios";
 
-// type FilterReducer = {
-//   categoryID: number;
-//   currentPage: number;
-//   searchString: string;
-//   sort: SortItem;
-// };
 const initialState = {
   movieData: {},
   credits: [],

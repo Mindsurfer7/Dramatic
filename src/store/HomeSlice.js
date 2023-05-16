@@ -1,17 +1,9 @@
-import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { addToFavoritesAPI } from "../api/api";
+
 import { API_Key } from "../components/Home";
 
-//simple search `https://api.themoviedb.org/3/search/movie?api_key=${API_Key}&query=${searchString}`
-
-//genres list https://api.themoviedb.org/3/genre/tv/list?api_key=90a2d91e59493255d0f5b07d7bb87d05&language=en-US
-
-// multi search https://api.themoviedb.org/3/search/multi?api_key=${API_Key}&query=${searchString}
-
 //https://api.themoviedb.org/3/search/keyword?api_key=<<api_key>>&page=1
-
-// `https://api.themoviedb.org/3/search/person?api_key=YOUR_API_KEY&query=${actorName}`
 
 export const requestMovies = createAsyncThunk(
   "home/requestMovies",
@@ -62,7 +54,6 @@ const initialState = {
   movies: [],
   TVshows: [],
   mustWatchList: [],
-  recomended: [],
   loadingStatus: "pending",
 };
 
@@ -112,24 +103,8 @@ export default homeReducer.reducer;
 
 // type request = Record<string, string>;
 
-// type HomeReducer = {
-//   pizzas: PizzaBlockProps[];
-//   loadingStatus: "pending" | "success" | "error";
-// };
-
 // enum Status {
 //   PENDING = "pending",
 //   SUCCESS = "success",
 //   ERROR = "error",
 // }
-// export const requestMovies = createAsyncThunk(
-//   "home/requestMovies",
-//   async (params) => {
-//     const { searchString } = params;
-//     const { data } = await axios.get(
-//       `https://api.themoviedb.org/3/search/movie?api_key=90a2d91e59493255d0f5b07d7bb87d05&query=${searchString}`
-//     );
-//     console.log(data);
-//     return data;
-//   }
-// );
