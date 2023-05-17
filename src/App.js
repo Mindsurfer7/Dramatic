@@ -1,9 +1,9 @@
 import css from "./styles/app.module.css";
 import { Route, Routes } from "react-router-dom";
 import Home from "./components/Home";
-import Header from "./components/Header";
-import SingleMovie from "./components/SingleMovie";
-import Favorites from "./components/Favorites";
+import Header from "./components/Header/Header";
+import SingleMovie from "./components/SingleMovie/SingleMovie";
+import Favorites from "./components/Favorites/Favorites";
 import Footer from "./components/Footer/Footer";
 
 function App() {

@@ -1,19 +1,19 @@
 import React from "react";
 import axios from "axios";
-import css from "../styles/home.module.css";
+import css from "./home.module.css";
 import { useState } from "react";
 import { useEffect } from "react";
-import MovieBlock from "./MovieBlock";
+import MovieBlock from "./MovieBlock/MovieBlock";
 
 import BigMovie from "./BigMovie/BigMovie";
 import { useSelector } from "react-redux";
 import { requestMovies, requestTV, setMovies } from "../store/HomeSlice";
 import { useDispatch } from "react-redux";
-
 import MovieBlockPreloader from "./tools/MovieBlockPreloader";
-import Recomended from "./Recomended";
+import Recomended from "./Recomended/Recomended";
 import { requestFavorites } from "../store/FavoritesSlice";
 import SearchBy from "./tools/SearchBy";
+import Paginator from "./tools/Paginator";
 
 export const API_Key = "90a2d91e59493255d0f5b07d7bb87d05";
 
@@ -23,12 +23,19 @@ const Home = (props) => {
   const { isLogged } = useSelector((state) => state.login);
   const UserID = useSelector((state) => state.login.account.uid);
   const [modalWindow, setModalWindow] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
   const { movies, loadingStatus, TVshows } = useSelector((state) => state.home);
   const { searchString } = useSelector((state) => state.filter);
 
   useEffect(() => {
-    console.log("yes");
     dispatch(requestMovies(searchString));
+
+    if (searchString !== "") {
+      const homeSection = document.getElementById("target-M");
+      if (homeSection) {
+        homeSection.scrollIntoView({ behavior: "smooth" });
+      }
+    }
   }, [searchString]);
 
   useEffect(() => {
@@ -38,14 +45,14 @@ const Home = (props) => {
   useEffect(() => {
     axios
       .get(
-        `https://api.themoviedb.org/3/trending/all/week?api_key=${API_Key}&language=en-US`
+        `https://api.themoviedb.org/3/trending/all/week?api_key=${API_Key}&language=en-US&page=${currentPage}`
       )
       .then((response) => {
         dispatch(setMovies(response.data.results));
       });
 
     dispatch(requestTV());
-  }, []);
+  }, [currentPage]);
 
   const handleClick = () => {
     setModalWindow(!modalWindow);
@@ -60,7 +67,10 @@ const Home = (props) => {
           FILTERS
         </div>
         <div className={css.items}>
-          <h2>Search Movies</h2>
+          {searchString ? <h2>{searchString}</h2> : <h2>Search Movies</h2>}
+        </div>{" "}
+        <div className={css.page}>
+          <Paginator setPage={setCurrentPage} />
         </div>
         {modalWindow && (
           <div className={css.popUp}>
@@ -105,25 +115,3 @@ const Home = (props) => {
 };
 
 export default Home;
-
-// useEffect(() => {
-//   axios
-//     .get(
-//       `https://api.themoviedb.org/3/discover/tv?api_key=${API_Key}&language=en-US&sort_by=popularity.desc`
-//     )
-//     .then((response) => {
-//       dispatch(setRecomendations(response.data.results));
-//       //console.log(response);
-//     });
-// }, []);
-
-{
-  /* <div className={css.movieBlock}>
-        Recomended 4 you!
-        {loadingStatus === "pending"
-          ? "LOADING..."
-          : recomended.map((movieData) => {
-              return <MovieBlock movieData={movieData} key={movieData.id} />;
-            })}
-      </div> */
-}

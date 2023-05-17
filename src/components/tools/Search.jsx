@@ -3,7 +3,7 @@ import { Button, Input } from "antd";
 import { debounce } from "lodash";
 import { useDispatch } from "react-redux";
 import { setSearchString } from "../../store/FilterSlice";
-import css from "../../styles/header.module.css";
+import css from "../Header/header.module.css";
 
 //import { useDispatch } from "react-redux";
 //https://api.themoviedb.org/3/search/movie?api_key=90a2d91e59493255d0f5b07d7bb87d05&query=Jack+Reacher
@@ -15,11 +15,13 @@ const SearchBtn = () => {
   const search2Redux = useCallback(
     debounce((str) => {
       dispatch(setSearchString(str));
-    }, 500),
-    []
+    }, 1000),
+    [search]
   );
+
   const searchOnType = (e) => {
     setSearch(e);
+
     search2Redux(search);
   };
   return (

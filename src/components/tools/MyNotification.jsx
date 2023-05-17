@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import css from "../../styles/home.module.css";
+import css from "../home.module.css";
 
 export const MyNotification = ({ message }) => {
   const [visible, setVisible] = useState(true);

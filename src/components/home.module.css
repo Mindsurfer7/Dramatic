@@ -12,6 +12,12 @@
   align-items: center;
 }
 
+.page {
+  position: absolute;
+  top: 7px;
+  right: 7px;
+}
+
 .TVshows {
   width: 1300px;
   height: 355px;

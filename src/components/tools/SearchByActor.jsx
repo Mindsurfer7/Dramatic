@@ -3,7 +3,7 @@ import { Button, Input } from "antd";
 import { debounce } from "lodash";
 import { useDispatch } from "react-redux";
 import { setSearchString } from "../../store/FilterSlice";
-import css from "../../styles/header.module.css";
+import css from "../Header/header.module.css";
 import { searchByActor } from "../../store/HomeSlice";
 
 const SearchByActor = () => {

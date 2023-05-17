@@ -1,17 +1,17 @@
 import React from "react";
-import css from "../styles/favorites.module.css";
+import css from "./favorites.module.css";
 import axios from "axios";
 import { useEffect } from "react";
-import { movieAPI } from "../api/api";
+import { movieAPI } from "../../api/api";
 import { NavLink } from "react-router-dom";
-import { API_Key } from "./Home";
+import { API_Key } from "../Home";
 import { useDispatch, useSelector } from "react-redux";
 import {
   removeFromFavorites,
   requestFavorites,
   setFavoritesData,
-} from "../store/FavoritesSlice";
-import TrailerBlock from "./tools/TrailerBlock";
+} from "../../store/FavoritesSlice";
+import TrailerBlock from "../tools/TrailerBlock";
 
 const Favorites = () => {
   const UserID = useSelector((state) => state.login.account.uid);

@@ -1,11 +1,14 @@
 import React, { useState } from "react";
-import css from "../styles/movieblock.module.css";
+import css from "./movieblock.module.css";
 import { useEffect } from "react";
 import { NavLink } from "react-router-dom";
-import rating from "../pics/IMDB.png";
+import rating from "../../pics/IMDB.png";
 import { HeartOutlined, HeartFilled } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
-import { addToFavoritesThunk, requestFavorites } from "../store/FavoritesSlice";
+import {
+  addToFavoritesThunk,
+  requestFavorites,
+} from "../../store/FavoritesSlice";
 
 const MovieBlock = ({ movieData, selectMovie, isLink }) => {
   const dispatch = useDispatch();

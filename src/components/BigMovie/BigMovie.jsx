@@ -4,7 +4,7 @@ import axios from "axios";
 import { API_Key } from "../Home";
 import { setMustWatch } from "../../store/HomeSlice";
 import { useDispatch, useSelector } from "react-redux";
-import MovieBlock from "../MovieBlock";
+import MovieBlock from "../MovieBlock/MovieBlock";
 import BigMovieLoader from "../tools/HomePreloader";
 import {
   addToFavoritesThunk,

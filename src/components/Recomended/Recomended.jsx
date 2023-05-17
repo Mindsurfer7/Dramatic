@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
-import MovieBlock from "./MovieBlock";
+import MovieBlock from "../MovieBlock/MovieBlock";
 import { useDispatch, useSelector } from "react-redux";
-import { requestRecMovies } from "../store/RecomendedSlice";
-import css from "../styles/recomend.module.css";
-import { requestFavorites } from "../store/FavoritesSlice";
+import { requestRecMovies } from "../../store/RecomendedSlice";
+import css from "./recomend.module.css";
+import { requestFavorites } from "../../store/FavoritesSlice";
 
 const Recomended = ({ movieData, selectMovie }) => {
   const dispatch = useDispatch();

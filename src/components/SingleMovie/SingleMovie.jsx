@@ -1,14 +1,14 @@
 import React, { useState } from "react";
-import css from "../styles/singlemovie.module.css";
+import css from "./singlemovie.module.css";
 import axios from "axios";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { API_Key } from "./Home";
+import { API_Key } from "../Home";
 import { useDispatch } from "react-redux";
-import IMDB from "../pics/IMDB.png";
-import { requestCredits, setMovieData } from "../store/SingleMovieSlice";
+import IMDB from "../../pics/IMDB.png";
+import { requestCredits, setMovieData } from "../../store/SingleMovieSlice";
 import { useSelector } from "react-redux";
-import TrailerBlock from "./tools/TrailerBlock";
+import TrailerBlock from "../tools/TrailerBlock";
 
 const SingleMovie = (props) => {
   const dispatch = useDispatch();

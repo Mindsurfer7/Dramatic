@@ -8,7 +8,7 @@ import { setSearchString } from "../../store/FilterSlice";
 //import css from "../../styles/header.module.css";
 import axios from "axios";
 import { API_Key } from "../Home";
-import css from "../../styles/home.module.css";
+import css from "../home.module.css";
 import { searchByGenre } from "../../store/HomeSlice";
 
 //import { useDispatch } from "react-redux";

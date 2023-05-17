@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import css from "../styles/header.module.css";
-import SearchBtn from "./tools/Search";
+import css from "./header.module.css";
+import SearchBtn from "../tools/Search";
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { loginWithGoogle } from "../store/LoginSlice";
-import logo from "../pics/dramatic.png";
+import { loginWithGoogle } from "../../store/LoginSlice";
+import logo from "../../pics/dramatic.png";
 import { SettingOutlined } from "@ant-design/icons";
-import SearchByActor from "./tools/SearchByActor";
+import SearchByActor from "../tools/SearchByActor";
 
 const Header = (props) => {
   const { isLogged } = useSelector((state) => state.login);
