@@ -3,17 +3,20 @@ import css from "./header.module.css";
 import SearchBtn from "../tools/Search";
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { loginWithGoogle } from "../../store/LoginSlice";
+import { loginWithGoogle } from "../../store/LoginSlice.ts";
 import logo from "../../pics/dramatic.png";
 import { SettingOutlined } from "@ant-design/icons";
 import SearchByActor from "../tools/SearchByActor";
+import { MyDispatch, RootState } from "../../store/store";
 
-const Header = (props) => {
-  const { isLogged } = useSelector((state) => state.login);
-  const { displayName } = useSelector((state) => state.login.account);
-  const [isVisible, setVisible] = useState();
+const Header = () => {
+  const { isLogged } = useSelector((state: RootState) => state.login);
+  const { displayName } = useSelector(
+    (state: RootState) => state.login.account
+  );
+  const [isVisible, setVisible] = useState(false);
   const [modalWindow, setModalWindow] = useState(false);
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<MyDispatch>();
 
   const loginSubmit = () => {
     dispatch(loginWithGoogle());
@@ -23,15 +26,15 @@ const Header = (props) => {
     setModalWindow(!modalWindow);
   };
 
-  const scrollToSection = (e) => {
+  const scrollToSection = (e: React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
     const section = document.getElementById("target-TV");
-    section.scrollIntoView({ behavior: "smooth" });
+    section?.scrollIntoView({ behavior: "smooth" });
   };
-  const scrollToSection2 = (e) => {
+  const scrollToSection2 = (e: React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
     const section = document.getElementById("target-M");
-    section.scrollIntoView({ behavior: "smooth" });
+    section?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (

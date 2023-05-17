@@ -1,10 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "./index.css";
-import App from "./App";
+import "./styles/index.css";
+import App from "./App.tsx";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
-import { DramaticStore } from "./store/store";
+import { DramaticStore } from "./store/store.ts";
 import { initializeApp } from "firebase/app";
 import { GoogleAuthProvider, getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
@@ -24,6 +24,7 @@ export const authG = getAuth(DramaticaApp);
 export const googleAuth = new GoogleAuthProvider();
 export const DramaticaDB = getFirestore(DramaticaApp);
 
+//@ts-ignore
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>

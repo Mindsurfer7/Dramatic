@@ -3,17 +3,24 @@ import css from "./singlemovie.module.css";
 import axios from "axios";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { API_Key } from "../Home";
+import { API_Key } from "../Home.tsx";
 import { useDispatch } from "react-redux";
 import IMDB from "../../pics/IMDB.png";
-import { requestCredits, setMovieData } from "../../store/SingleMovieSlice";
+import {
+  Actor,
+  requestCredits,
+  setMovieData,
+} from "../../store/SingleMovieSlice.ts";
 import { useSelector } from "react-redux";
-import TrailerBlock from "../tools/TrailerBlock";
+import TrailerBlock from "../tools/TrailerBlock.tsx";
+import { MyDispatch, RootState } from "../../store/store";
 
-const SingleMovie = (props) => {
-  const dispatch = useDispatch();
+const SingleMovie = () => {
+  const dispatch = useDispatch<MyDispatch>();
   const { ID } = useParams();
-  const { movieData, credits } = useSelector((state) => state.singleMovie);
+  const { movieData, credits } = useSelector(
+    (state: RootState) => state.singleMovie
+  );
   const [trailerURL, setTrailerURL] = useState("");
 
   useEffect(() => {
@@ -27,7 +34,7 @@ const SingleMovie = (props) => {
         dispatch(setMovieData(response.data));
 
         const officialTrailer = response.data.videos.results.find(
-          (video) => video.type === "Trailer" //Official T
+          (video: any) => video.type === "Trailer" //Official T
         );
         if (officialTrailer) {
           setTrailerURL(officialTrailer.key);
@@ -36,10 +43,9 @@ const SingleMovie = (props) => {
   }, [ID]);
 
   useEffect(() => {
+    //@ts-ignore
     dispatch(requestCredits(ID));
   }, [movieData]);
-
-  console.log(credits.cast);
 
   return (
     movieData && (
@@ -75,8 +81,10 @@ const SingleMovie = (props) => {
           <h2>Actors of this movie</h2>
         </div>
         <div className={css.castWrapper}>
-          {credits.cast &&
-            credits.cast.map((actor) => {
+          {credits &&
+            typeof credits === "object" &&
+            "cast" in credits &&
+            credits.cast.map((actor: Actor) => {
               return (
                 <div className={css.cast}>
                   {" "}

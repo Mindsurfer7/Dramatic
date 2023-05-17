@@ -1,17 +1,19 @@
 import React, { useEffect } from "react";
-import MovieBlock from "../MovieBlock/MovieBlock";
+import MovieBlock from "../MovieBlock/MovieBlock.tsx";
 import { useDispatch, useSelector } from "react-redux";
-import { requestRecMovies } from "../../store/RecomendedSlice";
+import { requestRecMovies } from "../../store/RecomendedSlice.ts";
 import css from "./recomend.module.css";
-import { requestFavorites } from "../../store/FavoritesSlice";
+import { requestFavorites } from "../../store/FavoritesSlice.ts";
+import { MyDispatch, RootState } from "../../store/store";
 
-const Recomended = ({ movieData, selectMovie }) => {
-  const dispatch = useDispatch();
-  const array = [1, 2, 3, 4];
-  const UserID = useSelector((state) => state.login.account.uid);
-  const { favorites, status } = useSelector((state) => state.favorites);
-  const { recomendations, loadingStatus } = useSelector(
-    (state) => state.recomended
+const Recomended: React.FC = () => {
+  const dispatch = useDispatch<MyDispatch>();
+  const UserID = useSelector((state: RootState) => state.login.account.uid);
+  const { favorites, status } = useSelector(
+    (state: RootState) => state.favorites
+  );
+  const { recomendations } = useSelector(
+    (state: RootState) => state.recomended
   );
 
   useEffect(() => {
@@ -39,11 +41,11 @@ const Recomended = ({ movieData, selectMovie }) => {
             </h1>
             <h3>
               Чтобы получить рекомендации, основанные на ваших интересах,
-              добавьте что-нибудь в избранное :)
+              добавьте что-нибудь в избранное =)
             </h3>
           </div>
         ) : (
-          recomendations.map((movieData) => {
+          recomendations?.map((movieData) => {
             return (
               <MovieBlock
                 movieData={movieData}

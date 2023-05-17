@@ -1,27 +1,23 @@
 import React, { useEffect, useState } from "react";
 import css from "./BigMovie.module.css";
 import axios from "axios";
-import { API_Key } from "../Home";
-import { setMustWatch } from "../../store/HomeSlice";
+import { API_Key } from "../Home.tsx";
+import { setMustWatch } from "../../store/HomeSlice.ts";
 import { useDispatch, useSelector } from "react-redux";
-import MovieBlock from "../MovieBlock/MovieBlock";
-import BigMovieLoader from "../tools/HomePreloader";
+import MovieBlock from "../MovieBlock/MovieBlock.tsx";
 import {
   addToFavoritesThunk,
+  movieData,
   requestFavorites,
-  resetStatus,
-} from "../../store/FavoritesSlice";
-import TrailerBlock from "../tools/TrailerBlock";
+} from "../../store/FavoritesSlice.ts";
+import TrailerBlock from "../tools/TrailerBlock.tsx";
 import { requestTrailerURL } from "../../api/api";
-import { MyNotification } from "../tools/MyNotification";
-import loader from "../../pics/loader.gif";
+import { MyDispatch, RootState } from "../../store/store.ts";
 
-/// &page=${page}
 const BigMovie = () => {
   const dispatch = useDispatch();
-  const [selectedMovie, setSelectedMovie] = useState(null);
-  const [page, setPage] = useState(1);
-  const { mustWatchList } = useSelector((state) => state.home);
+  const [selectedMovie, setSelectedMovie] = useState<number | null>(null);
+  const { mustWatchList } = useSelector((state: RootState) => state.home);
 
   useEffect(() => {
     axios
@@ -62,23 +58,26 @@ const BigMovie = () => {
   );
 };
 
-const ShowDisplay = ({ selectedMovie, mustWatchList }) => {
-  const dispatch = useDispatch();
-  const UserID = useSelector((state) => state.login.account.uid);
+type ShowDisplayProps = {
+  selectedMovie: number | null;
+  mustWatchList: movieData[];
+};
 
-  let neededMovie = mustWatchList.find((movie) => movie.id === selectedMovie);
-  const { favorites, status } = useSelector((state) => state.favorites);
-  const [showNotification, setShowNotification] = useState(false);
-  const [message, setMessage] = useState("");
+const ShowDisplay: React.FC<ShowDisplayProps> = ({
+  selectedMovie,
+  mustWatchList,
+}) => {
+  const dispatch = useDispatch<MyDispatch>();
+  const UserID = useSelector((state: RootState) => state.login.account.uid);
   const [isLoading, setIsLoading] = useState(false);
-
   const [isFavorite, setIsFavorite] = useState(false);
-  useEffect(() => {
-    console.log("lenght chaneges");
-    const checkFavorite = favorites.some((item) => item === selectedMovie);
-
-    setIsFavorite(checkFavorite);
-  }, [favorites.length, selectedMovie]);
+  const [TrailerURL, setTrailerURL] = useState("");
+  const neededMovie: movieData | undefined = mustWatchList.find(
+    (movie) => movie.id === selectedMovie
+  );
+  const { favorites, status } = useSelector(
+    (state: RootState) => state.favorites
+  );
 
   const addToWatchList = () => {
     if (!UserID) {
@@ -90,6 +89,14 @@ const ShowDisplay = ({ selectedMovie, mustWatchList }) => {
     );
   };
 
+  ////////////////// UseEffects /////////////////////////////////////////////////////////////////////////////////////
+
+  useEffect(() => {
+    const checkFavorite = favorites.some((item) => item === selectedMovie);
+
+    setIsFavorite(checkFavorite);
+  }, [favorites.length, selectedMovie]);
+
   useEffect(() => {
     if (status === "success") {
       setIsLoading(false);
@@ -97,23 +104,28 @@ const ShowDisplay = ({ selectedMovie, mustWatchList }) => {
     }
   }, [status]);
 
-  const [TrailerURL, setTrailerURL] = useState("");
-
   useEffect(() => {
-    const getURL = async (id) => {
+    const getURL = async (id: number) => {
       const vidURL = await requestTrailerURL(id);
       setTrailerURL(vidURL);
     };
-    getURL(neededMovie.id);
-  }, [selectedMovie]);
 
-  console.log(TrailerURL);
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    if (neededMovie) {
+      getURL(neededMovie.id);
+    }
+  }, [selectedMovie]);
 
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
 
   const toggleVideoPlay = () => {
     setIsVideoPlaying(!isVideoPlaying);
   };
+
+  if (!neededMovie) {
+    return null; // or render a loading state
+  }
 
   return (
     <div className={css.BigMovie}>
@@ -148,6 +160,5 @@ const ShowDisplay = ({ selectedMovie, mustWatchList }) => {
 
 export default BigMovie;
 
-// popularity(pin): 6246.713
-// poster_path(pin): "/5ik4ATKmNtmJU6AYD0bLm56BCVM.jpg"
-// release_date(pin): "2023-04-12"
+// const [showNotification, setShowNotification] = useState(false);
+// const [message, setMessage] = useState("");

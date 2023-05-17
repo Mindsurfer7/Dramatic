@@ -1,5 +1,5 @@
 import axios from "axios";
-import { DramaticaDB, authG, googleAuth } from "..";
+import { DramaticaDB, authG, googleAuth } from "../index.tsx";
 import { signInWithPopup, signOut } from "firebase/auth";
 import {
   updateDoc,
@@ -9,7 +9,13 @@ import {
   arrayRemove,
 } from "firebase/firestore";
 import { doc } from "firebase/firestore";
-import { API_Key } from "../components/Home";
+import { API_Key } from "../components/Home.tsx";
+
+// type LoginResponse = {
+//   status: number;
+//   message: string;
+//   profile: { providerId: string; uid: string; accessToken: string } | null;
+// };
 
 export const signInAPI = async () => {
   console.log("log in called");

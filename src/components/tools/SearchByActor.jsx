@@ -2,9 +2,9 @@ import React, { useCallback, useState } from "react";
 import { Button, Input } from "antd";
 import { debounce } from "lodash";
 import { useDispatch } from "react-redux";
-import { setSearchString } from "../../store/FilterSlice";
+import { setSearchString } from "../../store/FilterSlice.ts";
 import css from "../Header/header.module.css";
-import { searchByActor } from "../../store/HomeSlice";
+import { searchByActor } from "../../store/HomeSlice.ts";
 
 const SearchByActor = () => {
   const [search, setSearch] = useState("");
@@ -14,7 +14,7 @@ const SearchByActor = () => {
     debounce((str) => {
       dispatch(searchByActor(str));
     }, 500),
-    []
+    [search]
   );
   const searchOnType = (e) => {
     setSearch(e);

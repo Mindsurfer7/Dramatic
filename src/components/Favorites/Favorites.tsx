@@ -2,21 +2,23 @@ import React from "react";
 import css from "./favorites.module.css";
 import axios from "axios";
 import { useEffect } from "react";
-import { movieAPI } from "../../api/api";
-import { NavLink } from "react-router-dom";
-import { API_Key } from "../Home";
+import { API_Key } from "../Home.tsx";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  movieData,
   removeFromFavorites,
   requestFavorites,
   setFavoritesData,
-} from "../../store/FavoritesSlice";
-import TrailerBlock from "../tools/TrailerBlock";
+} from "../../store/FavoritesSlice.ts";
+import TrailerBlock from "../tools/TrailerBlock.tsx";
+import { MyDispatch, RootState } from "~/store/store.ts";
 
-const Favorites = () => {
-  const UserID = useSelector((state) => state.login.account.uid);
-  const { favorites, favoritesData } = useSelector((state) => state.favorites);
-  const dispatch = useDispatch();
+const Favorites: React.FC = () => {
+  const UserID = useSelector((state: RootState) => state.login.account.uid);
+  const { favorites, favoritesData } = useSelector(
+    (state: RootState) => state.favorites
+  );
+  const dispatch = useDispatch<MyDispatch>();
   console.log(favorites);
 
   useEffect(() => {
@@ -24,7 +26,7 @@ const Favorites = () => {
 
     const fetchData = async () => {
       const movieDataArray = await Promise.all(
-        favorites
+        favorites //@ts-ignore
           .filter((movieId) => movieId !== "")
           .map((movieId) =>
             axios.get(
@@ -33,7 +35,7 @@ const Favorites = () => {
           )
       );
 
-      let favoritesData = [];
+      let favoritesData: movieData[] = [];
 
       movieDataArray.forEach((response) => {
         favoritesData.push(response.data);
@@ -47,9 +49,12 @@ const Favorites = () => {
     }
   }, [UserID, favorites.length]); //user id needed only while developing
 
-  const deleteHandler = (userID, movie_ID) => {
-    console.log(userID, movie_ID);
-    dispatch(removeFromFavorites({ userID, movie_ID }));
+  const deleteHandler = (userID: string | null, movie_ID: number) => {
+    if (userID) {
+      dispatch(removeFromFavorites({ userID, movie_ID }));
+    } else {
+      // Handle the case when UserID is null
+    }
   };
 
   return (
@@ -72,18 +77,25 @@ const Favorites = () => {
 
 export default Favorites;
 
-const FavMovie = ({ movie, deleteHandler, UserID }) => {
+type FavMovieProps = {
+  movie: movieData;
+  deleteHandler: (userID: string, movie_ID: number) => void;
+  UserID: string | null;
+};
+
+const FavMovie: React.FC<FavMovieProps> = ({
+  movie,
+  deleteHandler,
+  UserID,
+}) => {
   const trailerURL = movie.videos.results.find(
-    (video) => video.type === "Trailer" //Official T
+    (video: any) => video.type === "Trailer" //Official T
   );
 
   return (
     <div className={css.container}>
       <div className={css.flex}>
         <TrailerBlock trailerURL={trailerURL.key} />
-        {/* <div className={css.pic}>
-        <img src={`http://image.tmdb.org/t/p/w500/${movie.poster_path}`} />
-      </div> */}
 
         <div className={css.info}>
           <h1>{movie.title}</h1>
@@ -97,7 +109,9 @@ const FavMovie = ({ movie, deleteHandler, UserID }) => {
           <div
             className={css.delBTN}
             onClick={() => {
-              deleteHandler(UserID, movie.id);
+              if (UserID) {
+                deleteHandler(UserID, movie.id);
+              }
             }}
           >
             Delete from Favorites

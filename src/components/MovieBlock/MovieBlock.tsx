@@ -7,13 +7,28 @@ import { HeartOutlined, HeartFilled } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addToFavoritesThunk,
+  movieData,
   requestFavorites,
-} from "../../store/FavoritesSlice";
+} from "../../store/FavoritesSlice.ts";
+import { MyDispatch, RootState } from "../../store/store";
+import { TVshows } from "~/store/HomeSlice.ts";
 
-const MovieBlock = ({ movieData, selectMovie, isLink }) => {
-  const dispatch = useDispatch();
-  const UserID = useSelector((state) => state.login.account.uid);
-  const { favorites, status } = useSelector((state) => state.favorites);
+type MovieBlockProps = {
+  movieData: movieData | TVshows;
+  selectMovie: (selectedMovie: number | null) => void; //id: number
+  isLink?: boolean;
+};
+
+const MovieBlock: React.FC<MovieBlockProps> = ({
+  movieData,
+  selectMovie,
+  isLink,
+}) => {
+  const dispatch = useDispatch<MyDispatch>();
+  const UserID = useSelector((state: RootState) => state.login.account.uid);
+  const { favorites, status } = useSelector(
+    (state: RootState) => state.favorites
+  );
   const [isFavorite, setIsFavorite] = useState(false);
 
   useEffect(() => {
@@ -111,22 +126,3 @@ const MovieBlock = ({ movieData, selectMovie, isLink }) => {
 };
 
 export default MovieBlock;
-
-// type Movie = {
-//     adult: boolean;
-//     backdrop_path: string;
-//     id: number;
-//     title: string;
-//     original_language: string;
-//     original_title: string;
-//     overview: string;s
-//     poster_path: string;
-//     media_type: string;
-//     genre_ids: number[];
-//     popularity: number;
-//     release_date: string;
-//     video: boolean;
-//     vote_average: number;
-//     vote_count: number;
-//   };
-//  <span>{movieData.release_date}</span>

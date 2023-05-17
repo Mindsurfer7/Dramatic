@@ -23,6 +23,11 @@
 
 .like {
   margin-left: 55px;
+  transition: transform 0.2s ease;
+}
+
+.like:active {
+  transform: translateY(5px);
 }
 .title {
   margin-top: 5px;
