@@ -4,7 +4,7 @@ import { Pagination } from "antd";
 // type propsType = {
 //   currentPage: number;
 //   setPage: (e: number) => void;
-// };
+// }; //
 
 const Paginator = (props) => {
   return (
